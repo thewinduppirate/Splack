@@ -3,7 +3,8 @@
 # Not sure playerctl is the best way to go
 
 from gi.repository import Playerctl, GLib
-import urllib
+import urllib.request
+import urllib.parse
 
 webhookURL = #CHANGE
 
@@ -14,8 +15,8 @@ params["channel"] = "#general"
 params["username"] = "SplackBot"
 params["icon_emoji"] =":headphones:"
 
-payload = urllib.urlencode(params)
-post = urllib.urlopen(webhookURL, params)
+payload = urllib.parse.urlencode(params)
+request = urllib.request.Request(webhookURL)
 
 player = Playerctl.Player()
 
@@ -24,7 +25,8 @@ def on_track_change(player, e):
     track_info = '{artist} - {title}'.format(artist=player.get_artist(), title=player.get_title())
     splackinfo={"text": [track_info], "channel": "#general", "username": "SplackBot", "icon_emoji": ":headphones:"}
     print([track_info])
-    print post.read()
+    with urllib.request.urlopen(request, payload) as f:
+    	print(f.read())
 
 player.on('metadata', on_track_change)
 
