@@ -16,13 +16,12 @@ player = Playerctl.Player()
 # On track change print out track info (for the moment)
 def on_track_change(player, e):
     track_info = '{artist} - {title}'.format(artist=player.get_artist(), title=player.get_title())
-    splackinfo={"text": [track_info], "channel": "#general", "username": "SplackBot", "icon_emoji": ":headphones:"}
     print([track_info])
-    send([track_info])
+    send(track_info)
 
 def send(track_info):
     params = {
-    "text" : "Now playing " track_info,
+    "text" : "Now playing " + str(track_info),
     "channel" : SlackChannel,
     "username" : SlackBotName,
     "icon_emoji" :":headphones:",
