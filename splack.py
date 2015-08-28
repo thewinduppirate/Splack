@@ -7,19 +7,9 @@ import urllib.request
 import urllib.parse
 import json
 
-webhookURL = #CHANGE
-
-params = {}
-
-params["text"] = "This is posted to <#general> and comes from *SplackBot*."
-params["channel"] = "#general"
-params["username"] = "SplackBot"
-params["icon_emoji"] =":headphones:"
-
-payload = urllib.parse.urlencode(params)
-payload = payload.encode("utf-8")
-request = urllib.request.Request(webhookURL)
-request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
+SlackWebhookURL = #CHANGE
+SlackBotName = "Bot"
+SlackChannel = "@tom"
 
 player = Playerctl.Player()
 
@@ -28,8 +18,27 @@ def on_track_change(player, e):
     track_info = '{artist} - {title}'.format(artist=player.get_artist(), title=player.get_title())
     splackinfo={"text": [track_info], "channel": "#general", "username": "SplackBot", "icon_emoji": ":headphones:"}
     print([track_info])
-    with urllib.request.urlopen(request, json.dumps(payload)) as f:
-    	print(f.read())
+    send([track_info])
+
+def send(track_info):
+	params = {
+    "text" : track_info,
+    "channel" : SlackChannel,
+    "username" : SlackBotName,
+    "icon_emoji" :":headphones:",
+    }
+
+    postparams = urllib.parse.urlencode(params)
+
+    data = json.dumps(params)
+
+    payload = data.encode("utf-8")
+
+    request = urllib.request.Request(SlackWebhookURL, payload, {'Content-Type': 'application/json'})
+
+    f = urllib.request.urlopen(request)
+    response = f.read()
+    f.close()
 
 player.on('metadata', on_track_change)
 
