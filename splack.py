@@ -8,8 +8,8 @@ import urllib.parse
 import json
 
 SlackWebhookURL = #CHANGE
-SlackBotName = "Bot"
-SlackChannel = "@tom"
+SlackBotName = "SplackBot"
+SlackChannel = "#general"
 
 player = Playerctl.Player()
 
@@ -21,8 +21,8 @@ def on_track_change(player, e):
     send([track_info])
 
 def send(track_info):
-	params = {
-    "text" : track_info,
+    params = {
+    "text" : "Now playing " track_info,
     "channel" : SlackChannel,
     "username" : SlackBotName,
     "icon_emoji" :":headphones:",

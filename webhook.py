@@ -6,7 +6,7 @@ import urllib.request
 import urllib.parse
 import json
 
-webhookURL =  #CHANGE
+webhookURL =  "https://hooks.slack.com/services/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"
 
 def send():
     params = {
