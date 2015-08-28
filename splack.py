@@ -16,7 +16,9 @@ params["username"] = "SplackBot"
 params["icon_emoji"] =":headphones:"
 
 payload = urllib.parse.urlencode(params)
+payload = data.encode("utf-8")
 request = urllib.request.Request(webhookURL)
+request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
 
 player = Playerctl.Player()
 
