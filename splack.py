@@ -7,7 +7,7 @@ import urllib
 
 webhookURL = #CHANGE
 
-params {}
+params = {}
 
 params["text"] = "This is posted to <#general> and comes from *SplackBot*."
 params["channel"] = "#general"
