@@ -16,7 +16,7 @@ player = Playerctl.Player()
 # On track change print out track info (for the moment)
 def on_track_change(player, e):
     track_info = '{title} by {artist}'.format(artist=player.get_artist(), title=player.get_title())
-    print([track_info])
+    # print([track_info])
     send(track_info)
 
 def send(track_info):
